@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 2: Education Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(56, 142, 60, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #2e7d32, #4caf50);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .form-title {
+            color: #2e7d32;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1b5e20;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #c8e6c9;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            color: #2e7d32;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+            outline: none;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .prev-btn, .next-btn {
+            flex: 1;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(56, 142, 60, 0.4);
+        }
+        
+        .prev-btn {
+            background: #f5f5f5;
+            color: #2e7d32;
+            border: 2px solid #4caf50;
+        }
+        
+        .prev-btn:hover {
+            background: #e8f5e9;
+            transform: translateY(-3px);
+        }
+        
+        .next-btn {
+            background: linear-gradient(to right, #2e7d32, #4caf50);
+            color: white;
+        }
+        
+        .next-btn:hover {
+            background: linear-gradient(to right, #1b5e20, #388e3c);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(56, 142, 60, 0.6);
+        }
+        
+        .prev-btn:active, .next-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-group i {
+            margin: 0 10px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 30px 0 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 50%;
+            background: linear-gradient(to right, #2e7d32, #4caf50);
+            border-radius: 4px;
+        }
+        
+        .progress-text {
+            text-align: right;
+            color: #2e7d32;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Education Details</h1>
+            <div class="subtitle">Tell us about your academic background</div>
+        </div>
+        
+        <div class="content">
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="progress-text">Step 2 of 4</div>
+            
+            <h2 class="form-title">Enter Your Education Information</h2>
+            
+            <div class="form-group">
+                <label for="university">University/Institution</label>
+                <input type="text" id="university" placeholder="Enter your university name" value="City University of Hong Kong">
+            </div>
+            
+            <div class="form-group">
+                <label for="degree">Degree Program</label>
+                <input type="text" id="degree" placeholder="Enter your degree program" value="Bachelor of Science in Computer Science">
+            </div>
+            
+            <div class="form-group">
+                <label for="graduation">Expected Graduation</label>
+                <input type="month" id="graduation" value="2025-05">
+            </div>
+            
+            <div class="form-group">
+                <label for="gpa">GPA</label>
+                <input type="text" id="gpa" placeholder="Enter your GPA" value="3.7/4.0">
+            </div>
+            
+            <div class="form-group">
+                <label for="coursework">Relevant Coursework</label>
+                <textarea id="coursework" placeholder="List your relevant coursework">Data Structures, Algorithms, Web Development, Database Systems, Artificial Intelligence, Software Engineering</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="achievements">Academic Achievements</label>
+                <textarea id="achievements" placeholder="List any academic awards or achievements">Dean's List 2022-2023, Best Final Year Project Award, Computer Science Department Scholarship</textarea>
+            </div>
+            
+            <div class="btn-group">
+                <button class="prev-btn" onclick="window.location.href='step1.html'">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button class="next-btn" onclick="window.location.href='step3.html'">
+                    Continue to Work Experience <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add focus effects to inputs
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
