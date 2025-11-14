@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Auto-Fill Platform Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2e7d32;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #4caf50;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .demo-container {
+            display: flex;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        
+        .demo-section {
+            flex: 1;
+            min-width: 400px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-title {
+            color: #2e7d32;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8f5e9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: #4caf50;
+        }
+        
+        .form-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e8f5e9;
+        }
+        
+        .form-title {
+            color: #2e7d32;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .auto-fill-btn {
+            background: linear-gradient(to right, #2e7d32, #4caf50);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(56, 142, 60, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .auto-fill-btn:hover {
+            background: linear-gradient(to right, #1b5e20, #388e3c);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(56, 142, 60, 0.4);
+        }
+        
+        .auto-fill-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .auto-fill-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            flex: 1;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .compact-group {
+            margin-bottom: 12px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #1b5e20;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #c8e6c9;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #2e7d32;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            border-color: #4caf50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
+            outline: none;
+        }
+        
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .large-textarea {
+            min-height: 70px;
+        }
+        
+        .status-message {
+            text-align: center;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #4caf50;
+        }
+        
+        .info {
+            background: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #2196f3;
+        }
+        
+        .typing-animation {
+            border-right: 2px solid #4caf50;
+            animation: blink 0.8s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { border-color: #4caf50; }
+            50% { border-color: transparent; }
+        }
+        
+        .highlight {
+            background-color: #e8f5e9;
+            transition: background-color 0.5s ease;
+        }
+        
+        .field-status {
+            position: absolute;
+            top: -6px;
+            right: 8px;
+            background: #4caf50;
+            color: white;
+            font-size: 0.65rem;
+            padding: 1px 6px;
+            border-radius: 8px;
+            display: none;
+            z-index: 5;
+        }
+        
+        .ai-adjusted .field-status {
+            background: #ff9800;
+        }
+        
+        .ai-badge {
+            display: none;
+        }
+        
+        .progress-container {
+            margin: 15px 0;
+            background: #f5f5f5;
+            border-radius: 10px;
+            height: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #4caf50, #2e7d32);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .info-panel {
+            background: #f1f8e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .info-title {
+            color: #2e7d32;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-content {
+            color: #1b5e20;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #c8e6c9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list i {
+            color: #4caf50;
+        }
+        
+        @media (max-width: 768px) {
+            .demo-container {
+                flex-direction: column;
+            }
+            
+            .demo-section {
+                min-width: 100%;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Auto UniForm Platform</h1>
+        <div class="subtitle">An intelligent system that adapts your information to perfectly fit any application form</div>
+    </div>
+    
+    <div class="demo-container">
+        <div class="demo-section">
+            <div class="section-title">
+                <i class="fas fa-file-alt"></i>
+                <span>Internship Application Form</span>
+            </div>
+            
+            <div class="form-container">
+                <div class="form-header">
+                    <div class="form-title">Tech Leadership Scholarship</div>
+                    <button class="auto-fill-btn" id="autoFillBtn">
+                        <i class="fas fa-robot"></i> Auto-Fill Form
+                    </button>
+                </div>
+                
+                <div id="statusMessage" class="status-message"></div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <div class="field-status" id="fullNameStatus">✓</div>
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <div class="field-status" id="emailStatus">✓</div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Your email">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <div class="field-status" id="phoneStatus">✓</div>
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" placeholder="Your phone">
+                    </div>
+                    <div class="form-group">
+                        <div class="field-status" id="universityStatus">✓</div>
+                        <label for="university">University</label>
+                        <input type="text" id="university" placeholder="Your university">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <div class="field-status" id="degreeStatus">✓</div>
+                        <label for="degree">Degree</label>
+                        <input type="text" id="degree" placeholder="Your degree program">
+                    </div>
+                    <div class="form-group">
+                        <div class="field-status" id="graduationStatus">✓</div>
+                        <label for="graduation">Graduation</label>
+                        <input type="month" id="graduation">
+                    </div>
+                    <div class="form-group">
+                        <div class="field-status" id="gpaStatus">✓</div>
+                        <label for="gpa">GPA</label>
+                        <input type="text" id="gpa" placeholder="Your GPA">
+                    </div>
+                </div>
+                
+                <div class="form-group compact-group">
+                    <div class="field-status" id="skillsStatus">✓</div>
+                    <label for="skills">Technical Skills</label>
+                    <textarea id="skills" placeholder="Your technical skills" class="large-textarea"></textarea>
+                </div>
+                
+                <div class="form-group compact-group ai-adjusted">
+                    <div class="field-status" id="experienceStatus">AI</div>
+                    <label for="experience">Technical Experience</label>
+                    <textarea id="experience" placeholder="Your technical experience" class="large-textarea"></textarea>
+                </div>
+                
+                <div class="form-group compact-group ai-adjusted">
+                    <div class="field-status" id="statementStatus">AI</div>
+                    <label for="statement">Leadership Motivation</label>
+                    <textarea id="statement" placeholder="Your leadership interests" class="large-textarea"></textarea>
+                </div>
+                
+                <div class="form-group compact-group ai-adjusted">
+                    <div class="field-status" id="goalsStatus">AI</div>
+                    <label for="goals">Career Goals</label>
+                    <textarea id="goals" placeholder="Your career goals" class="large-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <div class="section-title">
+                <i class="fas fa-info-circle"></i>
+                <span>How It Works</span>
+            </div>
+            
+            <div class="info-panel">
+                <div class="info-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Intelligent Content Adaptation
+                </div>
+                <div class="info-content">
+                    Our AI analyzes each form's requirements and intelligently adapts your saved information to create the perfect application.
+                </div>
+                
+                <ul class="feature-list">
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span><strong>Basic Information:</strong> Name, contact details, and education are filled directly</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-robot"></i>
+                        <span><strong>AI-Adapted Content:</strong> Experiences and goals are customized for each application</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-bolt"></i>
+                        <span><strong>Time Saving:</strong> Reduces form filling time by up to 80%</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-star"></i>
+                        <span><strong>Better Applications:</strong> Tailored content increases success rates</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="info-panel">
+                <div class="info-title">
+                    <i class="fas fa-database"></i>
+                    Your Saved Information
+                </div>
+                <div class="info-content">
+                    The system uses your master profile to fill forms. Here's a sample of your saved data:
+                </div>
+                
+                <ul class="feature-list">
+                    <li>
+                        <i class="fas fa-user"></i>
+                        <span><strong>Name:</strong> Alex Chen</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-graduation-cap"></i>
+                        <span><strong>Education:</strong> BSc Computer Science, City University of Hong Kong</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-briefcase"></i>
+                        <span><strong>Experience:</strong> Software Development Intern at Tech Innovators Ltd.</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-bullseye"></i>
+                        <span><strong>Goals:</strong> Become a Technology Director in healthcare technology</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="info-panel">
+                <div class="info-title">
+                    <i class="fas fa-magic"></i>
+                    AI Adaptations for This Form
+                </div>
+                <div class="info-content">
+                    For this Tech Leadership Scholarship, the system will:
+                </div>
+                
+                <ul class="feature-list">
+                    <li>
+                        <i class="fas fa-edit"></i>
+                        <span>Emphasize leadership experience in work history</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-edit"></i>
+                        <span>Focus on technology leadership aspirations</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-edit"></i>
+                        <span>Align career goals with scholarship objectives</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-edit"></i>
+                        <span>Highlight relevant technical and leadership skills</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const autoFillBtn = document.getElementById('autoFillBtn');
+            const statusMessage = document.getElementById('statusMessage');
+            const progressBar = document.getElementById('progressBar');
+            
+            // User's base information
+            const baseData = {
+                fullName: "Alex Chen",
+                email: "alex.chen@email.com",
+                phone: "+1 (234) 567-8901",
+                university: "City University of Hong Kong",
+                degree: "BSc in Computer Science",
+                graduation: "2025-05",
+                gpa: "3.7/4.0",
+                skills: "JavaScript, Python, React, Node.js, SQL, Git, Agile methodologies"
+            };
+            
+            // AI-adjusted content
+            const adjustedData = {
+                experience: "Led front-end development at Tech Innovators, mentoring junior interns and improving team productivity by 15%. Served as team lead for university projects, coordinating tasks and ensuring quality delivery.",
+                statement: "My passion for tech leadership comes from seeing how good management amplifies engineering impact. I've sought leadership roles in projects and internships, learning to balance technical decisions with team coordination.",
+                goals: "Aim to become a Technology Director in healthcare tech, leading AI diagnostic tools. Plan to use this scholarship for leadership courses and eventually establish a nonprofit for underserved communities."
+            };
+            
+            autoFillBtn.addEventListener('click', function() {
+                resetForm();
+                autoFillBtn.disabled = true;
+                autoFillBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Filling...';
+                
+                statusMessage.textContent = "Analyzing form and adapting your information...";
+                statusMessage.className = "status-message info";
+                statusMessage.style.display = "block";
+                
+                startAutoFill();
+            });
+            
+            function resetForm() {
+                const fields = [
+                    'fullName', 'email', 'phone', 'university', 'degree', 
+                    'graduation', 'gpa', 'experience', 'statement', 'goals', 'skills'
+                ];
+                
+                fields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (field) field.value = '';
+                    
+                    const status = document.getElementById(fieldId + 'Status');
+                    if (status) status.style.display = 'none';
+                });
+                
+                progressBar.style.width = '0%';
+            }
+            
+            function startAutoFill() {
+                const fields = [
+                    { id: 'fullName', value: baseData.fullName, delay: 300, isAI: false },
+                    { id: 'email', value: baseData.email, delay: 600, isAI: false },
+                    { id: 'phone', value: baseData.phone, delay: 900, isAI: false },
+                    { id: 'university', value: baseData.university, delay: 1200, isAI: false },
+                    { id: 'degree', value: baseData.degree, delay: 1500, isAI: false },
+                    { id: 'graduation', value: baseData.graduation, delay: 1800, isAI: false },
+                    { id: 'gpa', value: baseData.gpa, delay: 2100, isAI: false },
+                    { id: 'skills', value: baseData.skills, delay: 2400, isAI: false },
+                    { id: 'experience', value: adjustedData.experience, delay: 2700, isAI: true },
+                    { id: 'statement', value: adjustedData.statement, delay: 3300, isAI: true },
+                    { id: 'goals', value: adjustedData.goals, delay: 3900, isAI: true }
+                ];
+                
+                let completedFields = 0;
+                const totalFields = fields.length;
+                
+                function fillField(field) {
+                    const element = document.getElementById(field.id);
+                    const statusElement = document.getElementById(field.id + 'Status');
+                    
+                    if (element && statusElement) {
+                        statusElement.style.display = 'block';
+                        element.classList.add('highlight');
+                        
+                        if (field.isAI) {
+                            statusMessage.textContent = `Adapting ${getFieldName(field.id)} for scholarship focus...`;
+                        }
+                        
+                        simulateTyping(element, field.value, () => {
+                            element.classList.remove('highlight');
+                            completedFields++;
+                            progressBar.style.width = `${(completedFields / totalFields) * 100}%`;
+                            
+                            if (completedFields >= totalFields) {
+                                completeAutoFill();
+                            }
+                        });
+                    } else {
+                        completedFields++;
+                        progressBar.style.width = `${(completedFields / totalFields) * 100}%`;
+                        if (completedFields >= totalFields) {
+                            completeAutoFill();
+                        }
+                    }
+                }
+                
+                fields.forEach(field => {
+                    setTimeout(() => fillField(field), field.delay);
+                });
+            }
+            
+            function getFieldName(fieldId) {
+                const names = {
+                    'fullName': 'name', 'email': 'email', 'phone': 'phone',
+                    'university': 'university', 'degree': 'degree', 
+                    'graduation': 'graduation', 'gpa': 'GPA', 'skills': 'skills',
+                    'experience': 'experience', 'statement': 'statement', 'goals': 'goals'
+                };
+                return names[fieldId] || fieldId;
+            }
+            
+            function simulateTyping(element, text, callback) {
+                if (element.type === 'month') {
+                    element.value = text;
+                    if (callback) setTimeout(callback, 150);
+                    return;
+                }
+                
+                element.classList.add('typing-animation');
+                let i = 0;
+                element.value = '';
+                
+                function typeCharacter() {
+                    if (i < text.length) {
+                        element.value += text.charAt(i);
+                        i++;
+                        setTimeout(typeCharacter, 15);
+                    } else {
+                        element.classList.remove('typing-animation');
+                        if (callback) setTimeout(callback, 100);
+                    }
+                }
+                typeCharacter();
+            }
+            
+            function completeAutoFill() {
+                statusMessage.textContent = "✓ Form completed! Content adapted for scholarship requirements.";
+                statusMessage.className = "status-message success";
+                
+                autoFillBtn.innerHTML = '<i class="fas fa-check"></i> Complete';
+                autoFillBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
