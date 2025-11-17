@@ -294,6 +294,28 @@
         .feature-list i {
             color: #4caf50;
         }
+
+        .history-btn {
+            background: linear-gradient(to right, #5d4037, #8d6e63);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(93, 64, 55, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .history-btn:hover {
+            background: linear-gradient(to right, #4e342e, #6d4c41);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(93, 64, 55, 0.4);
+        }
         
         @media (max-width: 768px) {
             .demo-container {
@@ -333,6 +355,9 @@
                     <div class="form-title">Tech Leadership Scholarship</div>
                     <button class="auto-fill-btn" id="autoFillBtn">
                         <i class="fas fa-robot"></i> Auto-Fill Form
+                    </button>
+                    <button class="control-btn history-btn" id="historyBtn" onclick="window.location.href='history.html'">
+                        <i class="fas fa-history"></i> Form History
                     </button>
                 </div>
                 
