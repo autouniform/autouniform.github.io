@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Research PhD Fellowship - AutoFill Pro</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        .header-section {
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 20px rgba(0, 120, 212, 0.3);
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e1e5e9;
+        }
+        
+        .form-section {
+            border-bottom: 2px solid #f1f3f4;
+            padding: 2rem 0;
+        }
+        
+        .form-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            color: #0078d4;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e1f5fe;
+        }
+        
+        .filled-field {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 1rem;
+        }
+        
+        .save-btn {
+            background: linear-gradient(135deg, #107c10 0%, #0e700e 100%);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 124, 16, 0.4);
+        }
+        
+        .ai-badge {
+            background: linear-gradient(135deg, #ff8c00 0%, #e67c00 100%);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        
+        .field-label {
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 5px;
+        }
+        
+        .field-value {
+            color: #424242;
+            line-height: 1.5;
+        }
+        
+        .ms-logo {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0078d4;
+            margin-right: 15px;
+        }
+        
+        .benefit-card {
+            background: linear-gradient(135deg, #f3f2f1 0%, #e1dfdd 100%);
+            border-radius: 10px;
+            padding: 20px;
+            height: 100%;
+            border-left: 4px solid #0078d4;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header-section py-4 mb-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="ms-logo">
+                            <i class="fab fa-microsoft"></i>
+                        </div>
+                        <div>
+                            <h1 class="h3 mb-1">Microsoft Research PhD Fellowship</h1>
+                            <p class="mb-0 opacity-75">Fellowship Application - Submitted Successfully</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <button class="btn btn-light me-2" onclick="window.history.back()">
+                        <i class="fas fa-arrow-left me-2"></i>Back
+                    </button>
+                    <button class="btn save-btn" id="saveToProfileBtn">
+                        <i class="fas fa-save me-2"></i>Save to AutoFill Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row">
+            <!-- Main Form Content -->
+            <div class="col-lg-8">
+                <div class="form-container p-4 mb-4">
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-user me-2"></i>Personal Information
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="filled-field">
+                                    <div class="field-label">Full Name</div>
+                                    <div class="field-value">Alex Chen</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="filled-field">
+                                    <div class="field-label">Email Address</div>
+                                    <div class="field-value">alex.chen@email.com</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="filled-field">
+                                    <div class="field-label">Phone Number</div>
+                                    <div class="field-value">+1 (234) 567-8901</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="filled-field">
+                                    <div class="field-label">Current Institution</div>
+                                    <div class="field-value">City University of Hong Kong</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Background -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-graduation-cap me-2"></i>Academic Background
+                        </h3>
+                        <div class="filled-field">
+                            <div class="field-label">PhD Program</div>
+                            <div class="field-value">Computer Science - Artificial Intelligence Specialization</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="filled-field">
+                                    <div class="field-label">Expected Graduation</div>
+                                    <div class="field-value">May 2027</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="filled-field">
+                                    <div class="field-label">Current GPA</div>
+                                    <div class="field-value">3.8/4.0</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filled-field">
+                            <div class="field-label">Relevant Coursework</div>
+                            <div class="field-value">Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, Reinforcement Learning, Statistical Methods</div>
+                        </div>
+                    </div>
+
+                    <!-- Research Proposal -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-flask me-2"></i>Research Proposal
+                            <span class="ai-badge ms-2">AI-Adapted</span>
+                        </h3>
+                        <div class="filled-field">
+                            <div class="field-label">Research Title</div>
+                            <div class="field-value">"Interpretable AI for Healthcare Diagnostics: Bridging the Gap Between Accuracy and Explainability"</div>
+                        </div>
+                        <div class="filled-field">
+                            <div class="field-label">Research Abstract</div>
+                            <div class="field-value">
+                                This research proposes developing novel interpretable AI models for medical diagnostics that maintain high accuracy while providing transparent decision-making processes. The project will focus on creating hybrid neural-symbolic systems that combine the pattern recognition capabilities of deep learning with the logical reasoning of symbolic AI. This approach aims to address the critical need for trustworthy AI in healthcare settings where diagnostic decisions must be explainable to medical professionals and patients alike. The research will specifically target early detection of neurological disorders through multimodal data analysis.
+                            </div>
+                        </div>
+                        <div class="filled-field">
+                            <div class="field-label">Alignment with Microsoft Research</div>
+                            <div class="field-value">
+                                This work directly aligns with Microsoft Research's focus on responsible AI and healthcare innovation. It builds upon existing work in interpretable machine learning while addressing real-world clinical needs. The proposed research complements Microsoft's AI for Health initiative and could potentially integrate with Azure Health AI services. The methodology also resonates with Microsoft's research in neuro-symbolic AI and trustworthy AI systems.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Technical Experience -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-code me-2"></i>Technical Experience
+                            <span class="ai-badge ms-2">AI-Enhanced</span>
+                        </h3>
+                        <div class="filled-field">
+                            <div class="field-label">Research Experience</div>
+                            <div class="field-value">
+                                <strong>Research Assistant - AI in Healthcare Lab</strong> (2023-Present)<br>
+                                Developed deep learning models for medical image analysis with 94% accuracy. Published two first-author papers in peer-reviewed conferences. Led a team of 3 undergraduate researchers in data preprocessing and model validation.
+                                
+                                <br><br><strong>Microsoft Research Intern - AI Interpretability Team</strong> (Summer 2023)<br>
+                                Implemented novel visualization techniques for neural network decisions. Collaborated with senior researchers on a paper about model explainability. Contributed to open-source libraries for interpretable AI.
+                            </div>
+                        </div>
+                        <div class="filled-field">
+                            <div class="field-label">Technical Skills</div>
+                            <div class="field-value">
+                                <strong>Programming:</strong> Python, PyTorch, TensorFlow, R, Java, C++<br>
+                                <strong>ML Frameworks:</strong> Scikit-learn, Keras, Hugging Face, MLflow<br>
+                                <strong>Tools:</strong> Git, Docker, Azure ML, Jupyter, LaTeX<br>
+                                <strong>Domains:</strong> Computer Vision, NLP, Healthcare AI, Explainable AI
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Career Goals -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-bullseye me-2"></i>Career Goals & Impact
+                            <span class="ai-badge ms-2">AI-Optimized</span>
+                        </h3>
+                        <div class="filled-field">
+                            <div class="field-label">Long-term Career Objectives</div>
+                            <div class="field-value">
+                                My long-term goal is to become a research lead at an industry AI lab, focusing on developing trustworthy AI systems for critical applications. I aim to bridge the gap between academic research and real-world deployment, ensuring that AI advancements translate into tangible benefits for society. Specifically, I want to establish a research group that pioneers interpretable AI methodologies while maintaining state-of-the-art performance across various domains.
+                            </div>
+                        </div>
+                        <div class="filled-field">
+                            <div class="field-label">Expected Impact of Fellowship</div>
+                            <div class="field-value">
+                                The Microsoft Research PhD Fellowship would enable me to pursue high-risk, high-reward research directions without funding constraints. It would provide access to Microsoft's computational resources and expert mentorship, accelerating the development of practical interpretable AI solutions. The fellowship community would facilitate collaborations with leading researchers and early exposure to industry challenges, shaping my research to have maximum real-world impact.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Save Information Card -->
+                <div class="form-container p-4 mb-4">
+                    <h5 class="section-title mb-3">
+                        <i class="fas fa-database me-2"></i>Save to AutoFill Profile
+                    </h5>
+                    <p class="text-muted mb-3">
+                        Save this information to your AutoFill Pro profile for future applications.
+                    </p>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="savePersonal" checked>
+                        <label class="form-check-label" for="savePersonal">
+                            Personal Information
+                        </label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="saveAcademic" checked>
+                        <label class="form-check-label" for="saveAcademic">
+                            Academic Background
+                        </label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="saveResearch" checked>
+                        <label class="form-check-label" for="saveResearch">
+                            Research Experience
+                        </label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="saveTechnical" checked>
+                        <label class="form-check-label" for="saveTechnical">
+                            Technical Skills
+                        </label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="saveGoals" checked>
+                        <label class="form-check-label" for="saveGoals">
+                            Career Goals
+                        </label>
+                    </div>
+                    <button class="btn save-btn w-100" id="saveSelectionBtn">
+                        <i class="fas fa-save me-2"></i>Save Selected Information
+                    </button>
+                </div>
+
+                <!-- Fellowship Benefits -->
+                <div class="form-container p-4">
+                    <h5 class="section-title mb-3">
+                        <i class="fas fa-award me-2"></i>Fellowship Benefits
+                    </h5>
+                    <div class="benefit-card mb-3">
+                        <h6><i class="fas fa-money-bill-wave text-success me-2"></i>Full Tuition Coverage</h6>
+                        <p class="small mb-0">Two years of tuition and fees covered</p>
+                    </div>
+                    <div class="benefit-card mb-3">
+                        <h6><i class="fas fa-laptop-code text-primary me-2"></i>Research Stipend</h6>
+                        <p class="small mb-0">$42,000 annual stipend for living expenses</p>
+                    </div>
+                    <div class="benefit-card mb-3">
+                        <h6><i class="fas fa-plane text-info me-2"></i>Conference Travel</h6>
+                        <p class="small mb-0">$10,000 for professional development</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h6><i class="fas fa-users text-warning me-2"></i>Mentorship</h6>
+                        <p class="small mb-0">Direct mentorship from Microsoft researchers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-success">
+                        <i class="fas fa-check-circle me-2"></i>Information Saved!
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="fas fa-database fa-3x text-success mb-3"></i>
+                    <h5>Successfully saved to your AutoFill Pro profile</h5>
+                    <p class="text-muted">Your information is now available for future applications</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" onclick="window.location.href='history.html'">
+                        View Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const saveButtons = document.querySelectorAll('.save-btn, #saveSelectionBtn');
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            
+            saveButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Simulate saving process
+                    button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Saving...';
+                    button.disabled = true;
+                    
+                    setTimeout(() => {
+                        successModal.show();
+                        button.innerHTML = '<i class="fas fa-save me-2"></i>Save to AutoFill Profile';
+                        button.disabled = false;
+                    }, 1500);
+                });
+            });
+            
+            // Add some interactive features
+            const filledFields = document.querySelectorAll('.filled-field');
+            filledFields.forEach(field => {
+                field.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#e9ecef';
+                });
+                field.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '#f8f9fa';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
