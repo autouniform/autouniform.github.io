@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form History - AutoFill Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2e7d32;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .history-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .history-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #4caf50;
+            transition: all 0.3s ease;
+        }
+        
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .history-item.pending {
+            border-left-color: #ff9800;
+        }
+        
+        .history-item.submitted {
+            border-left-color: #4caf50;
+        }
+        
+        .history-item.draft {
+            border-left-color: #2196f3;
+        }
+        
+        .delete-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .delete-btn:hover {
+            background: #d32f2f;
+            transform: translateY(-1px);
+        }
+        
+        .back-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #1976d2;
+            transform: translateY(-1px);
+        }
+        
+        .form-type {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .scholarship { background: #e8f5e9; color: #2e7d32; }
+        .internship { background: #e3f2fd; color: #1565c0; }
+        .job { background: #fff3e0; color: #e65100; }
+        .university { background: #f3e5f5; color: #7b1fa2; }
+        .membership { background: #e0f2f1; color: #00796b; }
+        
+        .data-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .data-tag {
+            background: #f5f5f5;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-submitted { background: #e8f5e9; color: #2e7d32; }
+        .status-draft { background: #fff3e0; color: #ff9800; }
+        .status-pending { background: #e3f2fd; color: #2196f3; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Form History</h1>
+        <p>Manage your submitted forms and data</p>
+    </div>
+    
+    <div class="history-container">
+        <button class="back-btn" onclick="window.location.href='index.html'">
+            <i class="fas fa-arrow-left"></i> Back to Demo
+        </button>
+        
+        <h2>Your Form History</h2>
+        
+        <!-- Scholarship Applications -->
+        <div class="history-item submitted">
+            <h3>Google Women Techmakers Scholarship
+                <span class="form-type scholarship">Scholarship</span>
+                <span class="status-badge status-submitted">Submitted</span>
+            </h3>
+            <p><strong>Submitted:</strong> March 15, 2024</p>
+            <div class="data-tags">
+                <span class="data-tag">Personal Information</span>
+                <span class="data-tag">Academic Records</span>
+                <span class="data-tag">Leadership Experience</span>
+                <span class="data-tag">Diversity Statement</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(this)">
+                <i class="fas fa-trash"></i> Delete This Data
+            </button>
+        </div>
+        
+        <div class="history-item draft">
+            <h3>Microsoft Research PhD Fellowship
+                <span class="form-type scholarship">Scholarship</span>
+                <span class="status-badge status-draft">Draft</span>
+            </h3>
+            <p><strong>Last Saved:</strong> March 12, 2024</p>
+            <div class="data-tags">
+                <span class="data-tag">Research Proposal</span>
+                <span class="data-tag">Academic Transcripts</span>
+                <span class="data-tag">Recommendation Letters</span>
+                <span class="data-tag">Publication List</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(this)">
+                <i class="fas fa-trash"></i> Delete This Data
+            </button>
+        </div>
+        
+        <!-- Internship Applications -->
+        <div class="history-item submitted">
+            <h3>Meta Software Engineering Intern
+                <span class="form-type internship">Internship</span>
+                <span class="status-badge status-submitted">Submitted</span>
+            </h3>
+            <p><strong>Submitted:</strong> March 10, 2024</p>
+            <div class="data-tags">
+                <span class="data-tag">Resume</span>
+                <span class="data-tag">Cover Letter</span>
+                <span class="data-tag">Coding Projects</span>
+                <span class="data-tag">Availability</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(this)">
+                <i class="fas fa-trash"></i> Delete This Data
+            </button>
+        </div>
+        
+        <div class="history-item pending">
+            <h3>Apple iOS Development Intern
+                <span class="form-type internship">Internship</span>
+                <span class="status-badge status-pending">Under Review</span>
+            </h3>
+            <p><strong>Submitted:</strong> March 5, 2024</p>
+            <div class="data-tags">
+                <span class="data-tag">Swift Experience</span>
+                <span class="data-tag">App Portfolio</span>
+                <span class="data-tag">Technical Interview</span>
+                <span class="data-tag">References</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(this)">
+                <i class="fas fa-trash"></i> Delete This Data
+            </button>
+        </div>
+        
+        <!-- Job Applications -->
+        <div class="history-item submitted">
+            <h3>Amazon New Grad Software Engineer
+                <span class="form-type job">Job Application</span>
+                <span class="status-badge status-submitted">Submitted</span>
+            </h3>
+            <p><strong>Submitted:</strong> February 28, 2024</p>
+            <div class="data-tags">
+                <span class="data-tag">Online Assessment</span>
+                <span class="data-tag">Behavioral Questions</span>
+                <span class="data-tag">System Design</span>
+                <span class="data-tag">Team Preference</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(this)">
+                <i class="fas fa-trash"></i> Delete This Data
+            </button>
+        </div>
+        
+        <!-- University Applications -->
+        <div class="history-item submitted">
+            <h3>Stanford University MSCS Program
+                <span class="form-type university">University</span>
+                <span class="status-badge status-submitted">Submitted</span>
+            </h3>
+            <p><strong>Submitted:</strong> February 25, 2024</p>
+            <div class="data-tags">
+                <span class="data-tag">Statement of Purpose</span>
+                <span class="data-tag">GRE Scores</span>
+                <span class="data-tag">Letters of Recommendation</span>
+                <span class="data-tag">Research Interests</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(this)">
+                <i class="fas fa-trash"></i> Delete This Data
+            </button>
+        </div>
+        
+        <div class="history-item submitted">
+            <h3>MIT Computer Science PhD
+                <span class="form-type university">University</span>
+                <span class="status-badge status-submitted">Submitted</span>
+            </h3>
+            <p><strong>Submitted:</strong> February 20, 2024</p>
+            <div class="data-tags">
+                <span class="data-tag">Research Statement</span>
+                <span class="data-tag">Faculty Contacts</span>
+                <span class="data-tag">Publications</span>
+                <span class="data-tag">Funding Sources</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(this)">
+                <i class="fas fa-trash"></i> Delete This Data
+            </button>
+        </div>
+        
+        <!-- Club/Organization Applications -->
+        <div class="history-item submitted">
+            <h3>ACM Student Chapter Executive Board
+                <span class="form-type membership">Membership</span>
+                <span class="status-badge status-submitted">Submitted</span>
+            </h3>
+            <p><strong>Submitted:</strong> February 15, 2024</p>
+            <div class="data-tags">
+                <span class="data-tag">Leadership Experience</span>
+                <span class="data-tag">Event Planning</span>
+                <span class="data-tag">Technical Workshops</span>
+                <span class="data-tag">Community Outreach</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(this)">
+                <i class="fas fa-trash"></i> Delete This Data
+            </button>
+        </div>
+        
+        <div class="history-item submitted">
+            <h3>Google Developer Student Clubs Lead
+                <span class="form-type membership">Membership</span>
+                <span class="status-badge status-submitted">Submitted</span>
+            </h3>
+            <p><strong>Submitted:</strong> February 10, 2024</p>
+            <div class="data-tags">
+                <span class="data-tag">Community Building</span>
+                <span class="data-tag">Technical Skills</span>
+                <span class="data-tag">Event Management</span>
+                <span class="data-tag">Google Technologies</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(this)">
+                <i class="fas fa-trash"></i> Delete This Data
+            </button>
+        </div>
+        
+        <!-- Additional Applications -->
+        <div class="history-item submitted">
+            <h3>NASA Space Grant Fellowship
+                <span class="form-type scholarship">Scholarship</span>
+                <span class="status-badge status-submitted">Submitted</span>
+            </h3>
+            <p><strong>Submitted:</strong> February 5, 2024</p>
+            <div class="data-tags">
+                <span class="data-tag">Space Research</span>
+                <span class="data-tag">STEM Outreach</span>
+                <span class="data-tag">Technical Proposal</span>
+                <span class="data-tag">Academic Excellence</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(this)">
+                <i class="fas fa-trash"></i> Delete This Data
+            </button>
+        </div>
+        
+        <div class="history-item pending">
+            <h3>Goldman Sachs Engineering Intern
+                <span class="form-type internship">Internship</span>
+                <span class="status-badge status-pending">Interview Stage</span>
+            </h3>
+            <p><strong>Last Update:</strong> February 1, 2024</p>
+            <div class="data-tags">
+                <span class="data-tag">Financial Systems</span>
+                <span class="data-tag">Algorithmic Trading</span>
+                <span class="data-tag">Risk Management</span>
+                <span class="data-tag">Technical Interviews</span>
+            </div>
+            <button class="delete-btn" onclick="deleteHistoryItem(this)">
+                <i class="fas fa-trash"></i> Delete This Data
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function deleteHistoryItem(button) {
+            const item = button.closest('.history-item');
+            const formName = item.querySelector('h3').textContent.split('\n')[0];
+            
+            if (confirm(`Are you sure you want to delete all data for "${formName}"? This action cannot be undone.`)) {
+                item.style.opacity = '0.5';
+                item.style.transform = 'translateX(100px)';
+                setTimeout(() => {
+                    item.remove();
+                    // Show confirmation message
+                    alert('Form data has been successfully deleted.');
+                }, 500);
+            }
+        }
+        
+        // Add some interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            const items = document.querySelectorAll('.history-item');
+            items.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (!e.target.classList.contains('delete-btn')) {
+                        this.style.background = '#f8f9fa';
+                        setTimeout(() => {
+                            this.style.background = 'white';
+                        }, 200);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
